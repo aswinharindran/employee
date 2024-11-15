@@ -10,21 +10,21 @@ const App = () => {
   const [editingEmployee, setEditingEmployee] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:3000/employees')
+    axios.get('https://employee-server-04d5.onrender.com/employees')
       .then(response => setEmployees(response.data))
       .catch(error => console.error('There was an error fetching the employees!', error));
   }, []);
 
   const handleSaveEmployee = (employee) => {
     if (editingEmployee) {
-      axios.put(`http://localhost:3000/employees/${employee.id}`, employee)
+      axios.put(`https://employee-server-04d5.onrender.com/employees/${employee.id}`, employee)
         .then(response => {
           setEmployees(employees.map(emp => (emp.id === employee.id ? response.data : emp)));
           setEditingEmployee(null);
         })
         .catch(error => console.error('There was an error updating the employee!', error));
     } else {
-      axios.post('http://localhost:3000/employees', employee)
+      axios.post('https://employee-server-04d5.onrender.com/employees', employee)
         .then(response => setEmployees([...employees, response.data]))
         .catch(error => console.error('There was an error adding the employee!', error));
     }
@@ -35,7 +35,7 @@ const App = () => {
   };
 
   const handleDeleteEmployee = (id) => {
-    axios.delete(`http://localhost:3000/employees/${id}`)
+    axios.delete(`https://employee-server-04d5.onrender.com/employees/${id}`)
       .then(() => setEmployees(employees.filter(employee => employee.id !== id)))
       .catch(error => console.error('There was an error deleting the employee!', error));
   };
